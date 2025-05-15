@@ -65,11 +65,59 @@ jQuery(document).ready(function () {
 // login page
 
 // Get the modal
-var modal = document.getElementById('id01');
+let modal = document.getElementById('id01'); 
 
-// close it
-if (target == modal) {
-    modal.style.display = "none";
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 const theaterBtn = document.querySelector('thBtn');
+
+// java scrippt code Theater
+
+const theaterFrm = document.querySelector('.theaterForm');
+const thtBtb = document.getElementById('thbtn');
+var tid=0;
+theaterFrm.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    const thData = {
+        name:theaterFrm.elements['name'].value,
+        address:theaterFrm.elements['adres'].value,
+        noOfScreens:theaterFrm.elements['scren'].value
+    };
+    fetch('http://localhost:6959/api/v1/theater/addTh', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(thData)
+    })
+    .then(response => response.text())
+    .then(data => {
+        tid = data;
+    
+        const stData = {
+            noOfClassicSeats: theaterFrm.elements['clasic'].value,
+            noOfPremiumSeats: theaterFrm.elements['premium'].value,
+            theaterId: tid
+        };
+    
+        return fetch('http://localhost:6959/api/v1/theater/addSeat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(stData)
+        });
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert("Theater Successfully added: " + data+""+tid);
+        theaterFrm.reset();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });    
+});
