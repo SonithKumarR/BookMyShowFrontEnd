@@ -71,3 +71,5 @@ var modal = document.getElementById('id01');
 if (target == modal) {
     modal.style.display = "none";
 }
+
+const theaterBtn = document.querySelector('thBtn');

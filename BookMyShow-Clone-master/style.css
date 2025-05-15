@@ -68,6 +68,10 @@ body {
     display: flex;
     margin-left: auto;
 }
+.theaterCont{
+       display: flex;
+    margin-left: auto; 
+}
 
 .location {
     position: relative;
@@ -581,6 +585,16 @@ div .text {
     border-radius: 4px;
     align-items: center;
 }
+.sidebar .theater{
+    margin-left: 13%;
+    padding: 2px 45px;
+    background-color: #3d4372;
+    color: #f84464;
+    font-size: 23px;
+    font-weight: bold;
+    height: 39px;
+    border-radius: 5px;
+}
 
 .container a:hover{
     background-color: #ececec;
@@ -668,6 +682,64 @@ div .text {
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
     padding-top: 60px;
+}
+.theater2{
+   display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 997;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow:hidden;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: 60px; 
+}
+.theater3 {
+     background-color: #fff;
+    margin: 2% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border-radius: 8px;
+    height: 82%;
+    width: 428px;
+}
+.theater3 span{
+    position: relative;
+    margin-top: 85px;
+    margin-left: 90%;
+}
+.theaterForm{
+    padding: 16px;
+}
+.theaterForm input{
+    margin-top: 25px;
+    margin-left: 37px;
+    margin-right: 30px;
+    height: 23px;
+    background-color: #fff;
+    color: #434343;
+    text-decoration: none;
+    border: 3px solid #9a2929;
+    border-radius: 4px;
+    align-items: center;
+}
+.theaterForm .thBtn{
+    padding: 6px 35px;
+    height: 35px;
+    border-style: groove;
+    border-color: #d635c6;
+    background-color: aquamarine;
+    font-weight: bold;
+    font-size: 19px;
 }
 
 /* Modal Content/Box */

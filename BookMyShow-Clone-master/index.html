@@ -70,17 +70,6 @@
                     <ion-icon name="lock-closed-outline"></ion-icon>
                 </div>
             </a>
-            <a class="btn-disabled" href="#">
-                <div class="lefticon">
-                    <ion-icon name="tv-outline"></ion-icon>
-                </div>
-                <div class="text">Stream Library<br>
-                    <div class="subtext">Rented & Purchased Movies</div>
-                </div>
-                <div class="righticon">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                </div>
-            </a>
             <a href="#">
                 <div class="lefticon">
                     <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
@@ -114,18 +103,26 @@
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
             </a>
-            <a href="#">
-                <div class="lefticon">
-                    <ion-icon name="heart-outline"></ion-icon>
-                </div>
-                <div class="text">BookASmile</div>
-                <div class="righticon">
-                    <ion-icon name="chevron-forward-outline"></ion-icon>
-                </div>
-            </a>
-
+            <button class="theater" 
+            onclick="document.getElementById('ok').style.display='block'">Theater</button>
         </nav>
         <!-- End sidebar -->
+            <div class="theater2" id="ok">
+            <div class="theater3">
+                <span onclick="document.getElementById('ok').style.display='none'"
+            title="close" class="close">
+                <ion-icon name="close-outline"></ion-icon>
+            </span>
+                <form class="theaterForm" id="thf01">
+                    <input type="text" class="name" placeholder="Enter Theater name"/><br>
+                    <input type="text" class="adres" placeholder="Enter Theater address"/><br>
+                    <input type="number" class="scren" placeholder="Enter no of screens"/><br>
+                    <input type="number" class="clasic" placeholder="Enter classic seats"/><br>
+                    <input type="number" class="premium" placeholder="Enter premium seats"/><br>
+                    <input type="submit" class="thBtn" placeholder="Submit"/>
+                </form>
+                </div>
+         </div>
 
         <!-- Dark overlay -->
         <div class="overlay"></div>
@@ -141,14 +138,14 @@
                         placeholder='Search for Movies, Events, Plays, Sports, and Activities'></input>
                 </div>
                 <div class="right-container">
-                    <a href="#" class="location">Kollam<ion-icon name="caret-down-sharp"></ion-icon></a>
+                    <a href="#" class="location">Banglore<ion-icon name="caret-down-sharp"></ion-icon></a>
                     <button class="signin"
                         onclick="document.getElementById('id01').style.display='block'">Signin</button>
 
                     <div id="id01" class="modal">
 
                         <div class="modal-content">
-                            <div class="getstart">
+                            <div class="getstart">`
                                 <h3>Get Started</h3>
                                 <span onclick="document.getElementById('id01').style.display='none'" class="close"
                                     title="Close Modal">
