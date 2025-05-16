@@ -104,12 +104,16 @@
                 </div>
             </a>
             <button class="theater" 
-            onclick="document.getElementById('ok').style.display='block'">Theater</button>
+            onclick="document.getElementById('dev01').style.display='block'">Theater</button><br>
+            <button class="movie" id="movieBtn"
+            onclick="document.getElementById('dev02').style.display='block'">Movie</button>
         </nav>
         <!-- End sidebar -->
-            <div class="theater2" id="ok">
+
+         <!-- Theater Form  -->
+            <div class="theater2" id="dev01">
             <div class="theater3">
-                <span onclick="document.getElementById('ok').style.display='none'"
+                <span onclick="document.getElementById('dev01').style.display='none'"
             title="close" class="close">
                 <ion-icon name="close-outline"></ion-icon>
             </span>
@@ -122,7 +126,26 @@
                     <input type="number" name="premium" placeholder="Enter premium seats"/><br>
                     <input type="submit" id="thbtn" class="thBtn" placeholder="Submit"/>
                 </form>
-                </div>
+                </div>  
+         </div>
+
+         <!-- Movie From --> 
+         <div class="movie1" id="dev02">
+            <div class="movie2">
+                <span onclick="document.getElementById('dev02').style.display='none'" title="close">
+                    <ion-icon name="close-outline"></ion-icon>
+                </span><br>
+                 <h6 id="thd01" style="margin-left: 35%;">  Movie Details</h6>
+                <form class="movieForm"> 
+                    <input type="text" name="name" placeholder="Enter movie name" required/><br>
+                    <input type="text" name="lang" placeholder="Enter movie language" required/><br>
+                    <input type="date" name="date" placeholder="Enter release date" required/><br>
+                    <input type="number" name="durt" placeholder="Enter duration" required/><br>
+                    <input type="number" name="ratg" placeholder="Enter movie rating" required/><br>
+                    <input type="number" name="showno" placeholder="Enter shows number" required/><br>
+                    <input type="text" class="mvBtn" id="mvbtn" placeholder="Select showes" required/><br>
+                </form>
+            </div>
          </div>
 
         <!-- Dark overlay -->

@@ -683,6 +683,27 @@ div .text {
     /* Black w/ opacity */
     padding-top: 60px;
 }
+.movie1{
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 997;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow:hidden;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: 60px;
+}
 .theater2{
    display: none;
     /* Hidden by default */
@@ -704,6 +725,14 @@ div .text {
     /* Black w/ opacity */
     padding-top: 50px; 
 }
+.movie2{
+   background-color: #fff;
+    margin: 2% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border-radius: 8px;
+    height: 82%;
+    width: 428px; 
+}
 .theater3 {
      background-color: #fff;
     margin: 2% auto 15% auto;
@@ -717,7 +746,16 @@ div .text {
     margin-top: 85px;
     margin-left: 90%;
 }
+.movie2 span{
+    position: relative;
+    top: 11px;
+    margin-left: 83%;
+    font-size: 25px;
+}
 .theaterForm{
+    padding: 16px;
+}
+.movieForm{
     padding: 16px;
 }
 .theaterForm input{
@@ -732,13 +770,55 @@ div .text {
     border: 3px solid #9a2929;
     border-radius: 4px;
     align-items: center;
+    padding-left: 28px;
+    font-size: 17px;
+}
+.movieForm input{
+    margin-top: 12px;
+    margin-left: 37px;
+    margin-right: 30px;
+    height: 38px;
+    width: 78%;
+    background-color: #fff;
+    color: #434343;
+    border: 3px solid #a98c2dd0;
+    border-radius: 4px;
+    padding-left: 28px;
+    font-size: 17px;
+}
+.movieForm .mvBtn{
+    padding: 7px 30px;
+    height: 42px;
+    border: 3px solid #8c8f46;
+    background-color: rgb(197, 184, 163);
+    font-weight: bold;
+    font-size: 19px;
+    padding-left: 15px;
+    padding-top: 5px;
+    margin-left: 92px;
+    width: 45%;
+    color: #bebeac;
+}
+#movieBtn{
+    margin-top: 8px;
+    width: 48%;
+    height: 6%;
+    margin-left: 13%;
+    border: 3px solid sandybrown;
+    font-size:20px;
+    font-weight: 700;
+    background-color: lch(91.39% 29.18 108.57);
+    color: rgb(214, 159, 141);
+    border-radius: 5px;
+    box-shadow: 2px 1px 2px sandybrown;
+    letter-spacing: 1px;
 }
 .theaterForm .thBtn{
     padding: 7px 30px;
     height: 42px;
-    border-style: groove #d635c6;
-    border-color: #d635c6;
-    background-color: aquamarine;
+    border-style: groove #ab5225ef;
+    border-color: #b25848;
+    background-color: rgb(172, 106, 113);
     font-weight: bold;
     font-size: 19px;
     padding-left: 15px;
