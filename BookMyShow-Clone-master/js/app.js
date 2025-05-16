@@ -121,3 +121,69 @@ theaterFrm.addEventListener("submit",(e)=>{
         console.error("Error:", error);
     });    
 });
+
+// All Creating Movies  and  Showes.
+const moveForm = document.querySelector('.movieForm');
+const movbtn = document.getElementById('mvbtn');
+var showslimit,movieid;
+movbtn.addEventListener('click',(e)=>{
+    e.preventDefault();
+    const mvData = {
+        movieName:moveForm.elements['name'].value,
+        duration:moveForm.elements['durt'].value,
+        releaseDate:moveForm.elements['date'].value,
+        language:moveForm.elements['lang'].value,
+        rating:moveForm.elements['ratg'].value
+    };
+    showslimit = moveForm.elements['showno'].value;
+    fetch('',{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(mvData)
+    })
+    .then(reponse => reponse.text())
+    .then(data => {
+        movieid = data;
+        // fetch  Theaters
+        let theaterList = [];
+        fetch('')
+        .then(response => response.json())
+        .then(data => theaterList =data)
+        .catch(error => console.error(error))
+        // char GPT see --> Question 
+        // here I will create one side theater and next to it 4 timings of showes for each Theater
+        // to create a showes  -- >  this are one row 
+        // so I want to repeate the same for all list of theaters 
+    })
+    .catch(error => {
+        console.error("error: "+ error);
+    });
+});
+showsForm.addEventListener('click',(e) => {
+     // char GPT see --> Question 
+     // here every time creating some showes to each movie it should fetch that times to create show 
+     // so how to get details(showTime,showDate,movieId,TheaterId) at the time of clicking showes 
+     // and I have to create one dropdown that is ebow the theater   shwTime1  shwTime2 shwTime3 , like this 
+     // when I select dropdown same Theater and showes should come to specific date 
+     // so these are all Im using for owner to create a showes 
+     // give answers
+            e.preventDefault();
+            const showData = {
+                showDate : 
+                showTime:
+                movieId:movieid,
+                theaterId:
+            };
+            fetch('', {
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(showData)
+            })
+            .then(response => response.text())
+            .then(data =>{})
+            .catch(error => console.error("error: "+error) );
+});
