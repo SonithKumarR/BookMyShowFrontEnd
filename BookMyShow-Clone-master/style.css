@@ -683,6 +683,51 @@ div .text {
     /* Black w/ opacity */
     padding-top: 60px;
 }
+#theaterContainerTop{
+     display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 997;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow:hidden;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    padding-top: 60px;
+}
+#theaterContainerTop_2{
+    background-color: #fff;
+    margin: 0% auto 10% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border-radius: 8px;
+    height: 98%;
+    width: 878px;
+}
+#theaterContainer{
+    background-color: #cacbab;
+    margin: 3% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border-radius: 8px;
+    height: 77%;
+    width: 87%; 
+    overflow-y: scroll; 
+}
+
+#swspn{
+    margin-left: 52%;
+    margin-top: 24px;
+    font-size: 23px;
+    color: #9a2929;
+}
 .movie1{
     display: none;
     /* Hidden by default */
@@ -727,10 +772,10 @@ div .text {
 }
 .movie2{
    background-color: #fff;
-    margin: 2% auto 15% auto;
+    margin: 0% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
-    height: 82%;
+    height: 96%;
     width: 428px; 
 }
 .theater3 {
@@ -774,7 +819,7 @@ div .text {
     font-size: 17px;
 }
 .movieForm input{
-    margin-top: 12px;
+    margin-top: 8px;
     margin-left: 37px;
     margin-right: 30px;
     height: 38px;
@@ -787,6 +832,7 @@ div .text {
     font-size: 17px;
 }
 .movieForm .mvBtn{
+    margin-top: 3%;
     padding: 7px 30px;
     height: 42px;
     border: 3px solid #8c8f46;
@@ -798,6 +844,7 @@ div .text {
     margin-left: 92px;
     width: 45%;
     color: #bebeac;
+    cursor: pointer;
 }
 #movieBtn{
     margin-top: 8px;
@@ -836,4 +883,34 @@ div .text {
     height: 82%;
     width: 428px;
     /* Could be more or less, depending on screen size */
+}
+
+.theater-row {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.show-btn {
+    margin: 5px;
+    padding: 8px 12px;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.show-btn.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+.showtime-btn:hover {
+    background-color: #ddd;
+}
+.theater-title {
+    font-weight: bold;
+    margin-bottom: 8px;
 }

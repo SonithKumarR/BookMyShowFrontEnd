@@ -114,7 +114,7 @@ theaterFrm.addEventListener("submit",(e)=>{
     })
     .then(response => response.text())
     .then(data => {
-        alert("Theater Successfully added: " + data+""+tid);
+        alert("Theater Successfully added: "+tid);
         theaterFrm.reset();
     })
     .catch(error => {
@@ -122,60 +122,164 @@ theaterFrm.addEventListener("submit",(e)=>{
     });    
 });
 
-// All Creating Movies  and  Showes.
+/// All Creating Movies and Shows.
 const moveForm = document.querySelector('.movieForm');
 const movbtn = document.getElementById('mvbtn');
-var showslimit,movieid;
-movbtn.addEventListener('click',(e)=>{
+const ShowvsTherFrm = document.getElementById('theaterContainerTop');
+let showslimit, movieid=0;
+const theaterList = []; // keep this global for reuse
+
+movbtn.addEventListener('click', (e) => {
     e.preventDefault();
+
     const mvData = {
-        movieName:moveForm.elements['name'].value,
-        duration:moveForm.elements['durt'].value,
-        releaseDate:moveForm.elements['date'].value,
-        language:moveForm.elements['lang'].value,
-        rating:moveForm.elements['ratg'].value
+        movieName: moveForm.elements['name'].value,
+        duration: moveForm.elements['durt'].value,
+        releaseDate: moveForm.elements['date'].value,
+        language: moveForm.elements['lang'].value,
+        rating: moveForm.elements['ratg'].value
     };
+
     showslimit = moveForm.elements['showno'].value;
-    fetch('',{
-        method:"POST",
-        headers:{
-            'Content-Type':'application/json'
+
+    fetch('http://localhost:6959/api/v1/Movie', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body:JSON.stringify(mvData)
+        body: JSON.stringify(mvData)
     })
-    .then(reponse => reponse.text())
+    .then(response => response.text())
     .then(data => {
-        movieid = data;
-        // fetch  Theaters
-        let theaterList = [];
-        fetch('')
+        movieid = Number(data);
+        console.log("movieId : "+movieid);
+
+        // Fetch Theaters
+        fetch('http://localhost:6959/api/v1/theater/theaterList')
         .then(response => response.json())
-        .then(data => theaterList =data)
-        .catch(error => console.error(error))
-        // char GPT see --> Question 
-        // here I will create one side theater and next to it 4 timings of showes for each Theater
-        // to create a showes  -- >  this are one row 
-        // so I want to repeate the same for all list of theaters 
+        .then(data => {
+            theaterList.length = 0;        // Clear old theaters
+            theaterList.push(...data);     // Populate with new data
+            
+            ShowvsTherFrm.style.display = 'block';
+
+            // Delay to ensure UI is ready (usually not needed if DOM ready)
+        })
+        .catch(error => {
+            console.error("Error fetching theaters:", error);
+        });
     })
     .catch(error => {
-        console.error("error: "+ error);
+        console.error("Error creating movie:", error);
     });
 });
-showsForm.addEventListener('click',(e) => {
-     // char GPT see --> Question 
-     // here every time creating some showes to each movie it should fetch that times to create show 
-     // so how to get details(showTime,showDate,movieId,TheaterId) at the time of clicking showes 
-     // and I have to create one dropdown that is ebow the theater   shwTime1  shwTime2 shwTime3 , like this 
-     // when I select dropdown same Theater and showes should come to specific date 
-     // so these are all Im using for owner to create a showes 
-     // give answers
+
+const theaterContainer = document.getElementById('theaterContainer');
+const submitBtn = document.getElementById('submitShows');
+const selectedShows = []; // to hold selected show objects
+
+// Predefined show times
+const showTimes = ["10:00", "13:00", "16:00", "19:00", "22:00"];
+
+// Dynamically generate UI
+function renderTheaterRows() {
+    theaterContainer.innerHTML = ''; // Clear previous content
+
+    const showDateInput = document.getElementById('showDate');
+    if (!showDateInput) {
+        console.error("Show date input not found!");
+        return;
+    }
+    
+    const showdate = showDateInput.value;
+    if (!showdate) {
+        console.warn("Select a show date first.");
+        return;
+    }
+
+    theaterList.forEach(theater => {
+        const theaterRow = document.createElement('div');
+        theaterRow.classList.add('theater-row');
+
+        const title = document.createElement('h4');
+        const displayName = (theater.name === "") ? "TheaterEmt" : theater.name;
+        title.innerText = `Theater: ${displayName}`;
+        theaterRow.appendChild(title);
+
+        showTimes.forEach(time => {
+            const btn = document.createElement('button');
+            btn.innerText = time;
+            btn.classList.add('show-btn');
+
+            // Toggle selection
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('selected');
+                const Thid = theater.theaterId || theater.id;
+                const show = {
+                    showDate : showdate,
+                    showTime: time,
+                    movieId: movieid,
+                    theaterId: Thid
+                };
+
+                 //selectedShows.push(show);
+
+                // Toggle show in selectedShows array
+                const index = selectedShows.findIndex(s =>
+                    s.theaterId === show.theaterId &&
+                    s.showTime === show.showTime &&
+                    s.showDate === show.showDate &&
+                    s.movieId === show.movieId
+                );
+
+                if (index === -1) {
+                    selectedShows.push(show);
+                } else {
+                    selectedShows.splice(index, 1);
+                }
+            });
+
+            theaterRow.appendChild(btn);
+        });
+
+        theaterContainer.insertAdjacentElement('afterbegin',theaterRow);
+    });
+}
+
+ document.getElementById('showDate').addEventListener('change', renderTheaterRows);
+// Attach event listener after DOM content loaded
+/*document.addEventListener("DOMContentLoaded", () => {
+    const showDateInput = document.getElementById('showDate');
+    if (showDateInput) {
+        showDateInput.addEventListener('change', renderTheaterRows);
+    }
+});*/
+
+submitBtn.addEventListener('click', () => {
+    if (selectedShows.length === 0) {
+        alert("No shows selected!");
+        return;
+    }
+
+    selectedShows.forEach(show => {
+        console.log(show);
+        fetch('http://localhost:6959/api/v1/show/add',{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(show)
+            
+        })
+        .then(response => response.text())
+        .then(data => alert("Created show: " + data))
+        .catch(error => console.error("Error creating show:", error));
+    });
+});
+
+/*showsForm.addEventListener('click',(e) => {
             e.preventDefault();
-            const showData = {
-                showDate : 
-                showTime:
-                movieId:movieid,
-                theaterId:
-            };
+           
             fetch('', {
                 method:"POST",
                 headers:{
@@ -186,4 +290,4 @@ showsForm.addEventListener('click',(e) => {
             .then(response => response.text())
             .then(data =>{})
             .catch(error => console.error("error: "+error) );
-});
+});*/

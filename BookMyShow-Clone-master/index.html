@@ -143,10 +143,26 @@
                     <input type="number" name="durt" placeholder="Enter duration" required/><br>
                     <input type="number" name="ratg" placeholder="Enter movie rating" required/><br>
                     <input type="number" name="showno" placeholder="Enter shows number" required/><br>
-                    <input type="text" class="mvBtn" id="mvbtn" placeholder="Select showes" required/><br>
+                    <input type="text" class="mvBtn" id="mvbtn" placeholder="Select showes"/><br>
                 </form>
             </div>
          </div>
+
+         <!-- Adding Movies and Showes -->
+          <!-- Container to hold dynamic theater rows -->
+        <div id="theaterContainerTop">
+            <div id="theaterContainerTop_2" >
+            <label for="showDate">Select Show Date:</label>
+            <input type="date" id="showDate" required />
+            <button id="submitShows">Create Shows</button>
+             <span title="close" id="swspn" onclick="document.getElementById('theaterContainerTop').style.display='none'">
+                <ion-icon name="close-outline"></ion-icon>
+            </span>
+             <div id="theaterContainer">
+                <!-- Dropdown to pick a date -->
+            </div>
+            </div>
+        </div>
 
         <!-- Dark overlay -->
         <div class="overlay"></div>
