@@ -19,9 +19,9 @@ let movies = [
     }
 ]
 
-<!-- https://docs.google.com/document/d/1Qe5pLis3gnZRwq10mQOneNL1T4zMuyb5NbnuZn1ypOM/edit?usp=sharing -->
+/*<!-- https://docs.google.com/document/d/1Qe5pLis3gnZRwq10mQOneNL1T4zMuyb5NbnuZn1ypOM/edit?usp=sharing -->
 
-/*<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -198,4 +198,70 @@ document.getElementById("submitShowsBtn").addEventListener("click", () => {
 });
 </script>
 </body>
-</html>*/
+</html>
+
+---------------------------------
+package com.example.Bookings.Responses;
+
+public class TheaterResponse {
+    private int theaterId;
+    private String name;
+    private String address;
+
+    public TheaterResponse(){}
+
+    // Constructor
+    public TheaterResponse(int theaterId, String name, String address) {
+        this.theaterId = theaterId;
+        this.name = name;
+        this.address = address;
+    }
+
+    // Getter and Setter for theaterId
+    public int getTheaterId() {
+        return theaterId;
+    }
+
+    public void setTheaterId(int theaterId) {
+        this.theaterId = theaterId;
+    }
+
+    // Getter and Setter for name
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Getter and Setter for address
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+
+,,,,,,,,,,,,,,,,,,,,,,
+ public List<TheaterResponse> getThList(){
+        List<Theater> theaterList = theaterRepository.findAll();
+        List<TheaterResponse> theaterResponseList = new ArrayList<>();
+        for(Theater theater : theaterList) {
+            TheaterResponse obj  = new TheaterResponse();
+            obj.setTheaterId(theater.getTheaterId());
+            obj.setAddress(theater.getAddress());
+            obj.setName(theater.getName());
+           theaterResponseList.add(obj);
+        }
+        return theaterResponseList;
+    }
+
+    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+     @GetMapping("/theaterList")
+    public ResponseEntity<?> getThList(){
+        List<TheaterResponse> response = theaterService.getThList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }*/
