@@ -268,10 +268,8 @@ ul.navitem1 li {
     overflow-x: auto;
     overflow-y: visible;
     scroll-behavior: smooth;
-}
-
-.card-container::-webkit-scrollbar {
-    display: none;
+    -ms-overflow-style: none;  /* Not required */
+    scrollbar-width: none; /* it will hide the visible scroll bar*/
 }
 
 .card {
@@ -297,7 +295,6 @@ ul.navitem1 li {
     bottom: 0;
     background: #000;
     padding: 10px;
-    display: flex;
 }
 
 .card-body p {
@@ -324,9 +321,11 @@ ul.navitem1 li {
 }
 
 .strip {
+    position: absolute;
     padding-left: 145px;
     height: 10px;
     padding-top: 50px;
+    right: 0px;
 }
 
 .title-enter {
@@ -772,7 +771,7 @@ div .text {
 }
 .movie2{
    background-color: #fff;
-    margin: 0% auto 15% auto;
+    margin: 5% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
     height: 96%;
@@ -872,6 +871,173 @@ div .text {
     padding-top: 5px;
     margin-left: 92px;
     width: 30%;
+}
+
+/* Showes User Booing*/
+
+
+.date-container-Top{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    z-index: 957;
+    position: fixed;
+}
+#date-container{
+    margin: 2% auto 15% auto;/*auto to create center used in Rght&Lft*/
+    background-color: whitesmoke;
+    border-radius: 5px;
+    width: 59%;
+    height: 75%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-left: 42px;
+}
+
+.date-container-Top .dateclose{
+    color: #c4242b;
+    position: relative;
+    top: 86px;
+    left: 74%;
+    font-size: 28px;
+}
+
+.show-container-Top{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 976;
+}
+.show-container-Top .showclose{
+    color: #c4242b;
+    position: relative;
+    top: 84px;
+    left: 76%;
+    font-size: 29px;
+}
+
+#show-container{
+    width: 63%;
+    height: 79%;
+    margin: 2% auto 15% auto;
+    background-color: floralwhite;
+    border-radius: 5px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-left: 45px;
+    padding-right: 20px;
+}
+
+.seat-container-Top{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    z-index: 976;
+}
+.seat-container-Top .seatclose{
+    color: #c4242b;
+    position: relative;
+    top: 95px;
+    left: 76%;
+    font-size: 29px;
+}
+
+.seat-container-Top .seatForm{
+    position: relative;
+    top: 78%;
+    left: 58%;
+}
+
+#isBooked {
+    background-color: rgb(227, 107, 107);
+    pointer-events: none; /* disable clicking */
+    opacity: 0.6;
+}
+.show-btn:hover{
+    background-color: #8c8f46;
+}
+.isBooked {
+    background-color: rgb(221, 218, 218);
+    pointer-events: none; /* disable clicking */
+    opacity: 0.6;
+}
+
+#seat-container{
+    width: 63%;
+    height: 79%;
+    margin: 1% auto 15% auto;
+    background-color: floralwhite;
+    border-radius: 5px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-left: 45px;
+    padding-right: 20px;
+    margin-top: 0%;
+}
+
+.seat-btn{
+    margin: 7px;
+    padding: 5px 8px;
+    border: none;
+    background-color: #d4e6f1;
+    color: black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.seat-btn:hover {
+    background-color: rgb(194, 173, 199);
+}
+
+#PREMIUM:hover{
+    background-color: #ccce8c;
+}
+
+#PREMIUM{
+    background-color: #e3961b;
+    color: black;
+}
+
+.date-btn {
+    margin: 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #2980b9;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.date-btn:hover {
+    background-color: #1abc9c;
+}
+
+.theater-block {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.showtime-btn {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    background-color: #34495e;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#mvishowtle{
+    color: #93c5c1;
+    font-size: 20px;
 }
 
 /* Modal Content/Box */
