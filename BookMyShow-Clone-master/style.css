@@ -516,9 +516,9 @@ div .text {
 }
 
 .btn-disabled {
-    opacity: .4;
+    /*opacity: .4;
     cursor: default !important;
-    pointer-events: none;
+    pointer-events: none;*/
 }
 
 /***** Dark overlay *****/
@@ -774,7 +774,7 @@ div .text {
     margin: 5% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
-    height: 96%;
+    height: 92%;
     width: 428px; 
 }
 .theater3 {
@@ -874,6 +874,87 @@ div .text {
 }
 
 /* Showes User Booing*/
+.ticket-container-Top{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    z-index: 957;
+    position: fixed;
+}
+
+.ticket-container-Top .ticketclose{
+    color: #c4242b;
+    position: relative;
+    top: 70px;
+    left: 62%;
+    font-size: 28px;
+}
+.tickets {
+  gap: 30px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.userticket {
+  background-color: #d360d5;
+  border: 1px solid #ddd;
+  padding: 16px 20px;
+  border-radius: 12px;
+  width: 290px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.userticket:hover {
+  transform: scale(1.02);
+}
+
+.userticket h3 {
+  margin: 0 0 12px 0;
+  color: #333;
+  font-size: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 6px;
+}
+
+.userticket p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+.userticket strong {
+  color: #222;
+}
+
+.ticketForm{
+    position: relative;
+    left: 35%;
+    top: 11%;
+}
+.ticketForm .ticketEmail{
+    background-color: #e79cef;
+    border-radius: 4px;
+     box-shadow: 0 2px 3px rgba(190, 115, 102, 0.861);
+}
+.ticketForm .ticketbtn{
+    background-color: #5abce3;
+    border-radius: 4px;
+     box-shadow: 0 2px 3px rgba(184, 72, 72, 0.861);
+}
+
+.ticket-container{
+    margin: 2% auto 15% auto;/*auto to create center used in Rght&Lft*/
+    background-color: whitesmoke;
+    border-radius: 5px;
+    width: 30%;
+    height: 80%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-left: 42px;
+}
 
 
 .date-container-Top{
@@ -965,7 +1046,11 @@ div .text {
 .isBooked {
     background-color: rgb(221, 218, 218);
     pointer-events: none; /* disable clicking */
-    opacity: 0.6;
+    opacity: 0.2;
+}
+.isSelected{
+    background-color: #4CAF50;
+    pointer-events: none;
 }
 
 #seat-container{

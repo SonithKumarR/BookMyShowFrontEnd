@@ -137,7 +137,8 @@ movbtn.addEventListener('click', (e) => {
         duration: moveForm.elements['durt'].value,
         releaseDate: moveForm.elements['date'].value,
         language: moveForm.elements['lang'].value,
-        rating: moveForm.elements['ratg'].value
+        rating: moveForm.elements['ratg'].value,
+        image : moveForm.elements['showno'].value
     };
 
     showslimit = moveForm.elements['showno'].value;
@@ -287,7 +288,7 @@ submitBtn.addEventListener('click', () => {
             .then(response => response.text())
             .then(data => console.log(data))
             .catch(error => console.error("Error creating show:", error));
-              document.writeln("Show and ShowSeats are Created");
+              alert("Show and ShowSeats are Created");
     });
     Promise.all(promises).then(() => {
  // Clear the array correctly
@@ -466,8 +467,13 @@ showContainer.addEventListener('click', (event) => {
                     indx = -1;
                 }
                 indx++;
-                seatbtn.addEventListener('click', () => {
+                /*seatbtn.addEventListener('click', () => {
                     selectedseats.push(seate.seatNo);
+                });
+                */ seatContainer.addEventListener('click', (event) => {
+                    const seat = event.target.closest('.seat-btn');
+                    seat.classList.add('isSelected');
+                    selectedseats.push(seat.dataset.seatNo);
                 });
             });
         })
@@ -483,6 +489,10 @@ const seatForm = document.querySelector('.seatForm'); // optional, for form hand
 // Example: Get the email when the form is submitted
 seatForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Prevent page reload
+    if(selectedseats.length === 0){
+        alert("Select atleast one seat! : No seats are selected");
+        return;
+    }
 
     const email = seatTabEmailInput.value.trim();
 
@@ -526,6 +536,54 @@ seatForm.addEventListener('submit', (e) => {
                 selectedseats = []; // Clear after success if needed
             })
             .catch(error => console.error('Booking failed:', error));
+        })
+        .catch(error => {
+            console.error('Email validation failed:', error);
+            alert("User not found or invalid email.");
+        });
+});
+
+const ticketEmal = document.querySelector(".ticketEmail");
+const ticketBtn = document.querySelector(".ticketbtn");
+const ticketContainer = document.querySelector(".ticket-container");
+
+ticketBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const email = ticketEmal.value.trim(); 
+    fetch(`http://localhost:6959/api/v1/user?emailId=${encodeURIComponent(email)}`)
+        .then(response => {
+            return response.text();
+            //if throw error here move to catch that's it.
+        })
+        .then(data => {
+            if (data === "") {
+                alert("Email mismatch! Expected: user Not Found");
+                return;
+            }
+            const ticketscont = document.createElement('div');
+            ticketscont.className="tickets";
+            ticketContainer.innerHTML = "";
+            fetch(`http://localhost:6959/api/v1/ticket?Email=${encodeURIComponent(email)}`)
+            .then(response => response.json())
+            .then(tickets => {
+                tickets.forEach(ticket => {
+                const userTicket = document.createElement('div')
+                userTicket.className="userticket";
+                userTicket.innerHTML=`
+                <div>
+                    <div><h3>${ticket.movieName}</h3></div>
+                    <div> <p><strong>Theater Name: </strong> ${ticket.theaterName}</p></div>
+                    <div> <p><strong>Show Date: </strong> ${ticket.showDate}</p></div>
+                    <div>  <p><strong>Show Time:</strong> ${ticket.showTime}</p></div>
+                    <div> <p><strong>Booked SeatsNo:</strong> ${ticket.bookedSeats}</p></div>
+                    <div> <p><strong>Amount:</strong> ₹${ticket.totalAmount}</p></div>
+                </div> `;
+                
+                  ticketscont.appendChild(userTicket);
+                });
+                ticketContainer.appendChild(ticketscont);
+            })
+            .catch(error => console.error('Tickets failed:', error));
         })
         .catch(error => {
             console.error('Email validation failed:', error);

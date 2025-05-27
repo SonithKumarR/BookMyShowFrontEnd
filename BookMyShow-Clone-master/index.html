@@ -63,7 +63,7 @@
                 <div class="lefticon">
                     <ion-icon name="ticket-outline"></ion-icon>
                 </div>
-                <div class="text">Purchase History<br>
+                <div class="text" onclick="document.getElementById('ticket').style.display='block'" >Purchase History<br>
                     <div class="subtext">View all your bookings & Purchases</div>
                 </div>
                 <div class="righticon">
@@ -142,7 +142,7 @@
                     <input type="date" name="date" placeholder="Enter release date" required/><br>
                     <input type="number" name="durt" placeholder="Enter duration" required/><br>
                     <input type="number" name="ratg" placeholder="Enter movie rating" required/><br>
-                    <input type="number" name="showno" placeholder="Enter shows number" required/><br>
+                    <input type="text" name="showno" placeholder="Enter movie image" required/><br>
                     <input type="text" class="mvBtn" id="mvbtn" placeholder="Select showes"/><br>
                 </form>
             </div>
@@ -176,6 +176,17 @@
                 <ion-icon name="close-outline" ></ion-icon>
             </span>
             <div id="show-container"></div>
+        </div>
+
+        <div class="ticket-container-Top" id="ticket">
+            <form class="ticketForm">
+                <input type="email" class="ticketEmail" placeholder="Enter signin email" />
+                 <button type="submit" class="ticketbtn">Get Tickets</button>
+            </form>
+             <span class="ticketclose" onclick="document.getElementById('ticket').style.display='none'">
+                <ion-icon name="close-outline" ></ion-icon>
+            </span>
+            <div class="ticket-container"></div>
         </div>
 
         <div class="seat-container-Top">
