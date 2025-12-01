@@ -19,249 +19,67 @@ let movies = [
     }
 ]
 
-/*<!-- https://docs.google.com/document/d/1Qe5pLis3gnZRwq10mQOneNL1T4zMuyb5NbnuZn1ypOM/edit?usp=sharing -->
+/*if user click on submit button open login page then book ticket <form class="seatForm">
+        <input type="email" name="email" class="stfmeml" placeholder="Enter your email" required />
+        <input type="submit" class="stfmsbm" />
+    </form>  see here //fetch for POST Ticket and selected Seates
+const seatTabEmailInput = document.querySelector('.stfmeml'); // selects the email input
+const seatTabSubmitBtn = document.querySelector('.stfmsbm'); // selects the submit button
+const seatForm = document.querySelector('.seatForm'); // optional, for form handling
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Show Grid</title>
-  <style>
-    #showGridContainer {
-      margin: 20px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      width: fit-content;
+// Example: Get the email when the form is submitted
+seatForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent page reload
+    if(selectedseats.length === 0){
+        alert("Select atleast one seat! : No seats are selected");
+        return;
     }
 
-    #showGrid {
-      display: grid;
-      gap: 10px;
-      grid-auto-rows: auto;
+    const email = seatTabEmailInput.value.trim();
+
+    if (email === "") {
+        alert("Kindly Enter Your BookMyShow Email");
+        return;
     }
 
-    .row-label {
-      font-weight: bold;
-      margin-right: 10px;
-      white-space: nowrap;
-    }
-
-    .show-row {
-      display: flex;
-      align-items: center;
-    }
-
-    .show-btn {
-      margin: 0 5px;
-      padding: 8px 12px;
-      border: 1px solid gray;
-      border-radius: 8px;
-      background-color: #f0f0f0;
-      cursor: pointer;
-    }
-
-    .show-btn.selected {
-      background-color: green;
-      color: white;
-      font-weight: bold;
-    }
-
-    .show-btn.disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body>
-
-<div>
-  <label>🎬 Movie:</label>
-  <select id="movieDropdown"></select>
-
-  <label>📅 Date:</label>
-  <input type="date" id="dateInput" />
-
-  <button id="loadGridBtn">Load Shows</button>
-  <button id="submitShowsBtn">Submit Selected Shows</button>
-</div>
-
-<div id="showGridContainer">
-  <h3>Available Showtimes</h3>
-  <div id="showGrid"></div>
-</div>
-
-<script>
-const theaters = [
-  { id: 1, name: "Theater A" },
-  { id: 2, name: "Theater B" }
-];
-
-const showTimes = ["10:00", "13:00", "16:00", "19:00", "22:00"];
-let selectedShows = [];
-let existingShows = [];
-
-const movies = [
-  { id: 1, name: "Movie 1" },
-  { id: 2, name: "Movie 2" }
-];
-
-const movieDropdown = document.getElementById("movieDropdown");
-movies.forEach(movie => {
-  const opt = document.createElement("option");
-  opt.value = movie.id;
-  opt.innerText = movie.name;
-  movieDropdown.appendChild(opt);
-});
-
-document.getElementById("loadGridBtn").addEventListener("click", () => {
-  const movieId = movieDropdown.value;
-  const selectedDate = document.getElementById("dateInput").value;
-
-  if (!movieId || !selectedDate) {
-    alert("Please select movie and date");
-    return;
-  }
-
-  document.getElementById("showGrid").innerHTML = "";
-  selectedShows = [];
-
-  // Simulate fetch existing shows
-  existingShows = [
-    { theaterId: 1, time: "13:00" },
-    { theaterId: 2, time: "16:00" }
-  ];
-
-  buildShowGrid(movieId, selectedDate);
-});
-
-function buildShowGrid(movieId, selectedDate) {
-  const grid = document.getElementById("showGrid");
-
-  theaters.forEach(theater => {
-    const row = document.createElement("div");
-    row.classList.add("show-row");
-
-    const label = document.createElement("div");
-    label.classList.add("row-label");
-    label.innerText = theater.name;
-    row.appendChild(label);
-
-    showTimes.forEach(time => {
-      const btn = document.createElement("button");
-      btn.classList.add("show-btn");
-      btn.innerText = time;
-
-      const isTaken = existingShows.some(s => s.theaterId === theater.id && s.time === time);
-      if (isTaken) {
-        btn.classList.add("disabled");
-      } else {
-        btn.addEventListener("click", () => {
-          btn.classList.toggle("selected");
-          const key = `${movieId}_${selectedDate}_${theater.id}_${time}`;
-          const idx = selectedShows.findIndex(s => s.key === key);
-
-          if (btn.classList.contains("selected")) {
-            if (idx === -1) {
-              selectedShows.push({ key, movieId, date: selectedDate, theaterId: theater.id, time });
+    // Validate email against backend
+    fetch(`http://localhost:6953/api/v1/user?emailId=${encodeURIComponent(email)}`)
+        .then(response => {
+            return response.text();
+            //if throw error here move to catch that's it.
+        })
+        .then(data => {
+            if (data === "") {
+                alert("Email mismatch! Expected: user Not Found");
+                return;
             }
-          } else {
-            if (idx !== -1) selectedShows.splice(idx, 1);
-          }
+
+            // Extract seat numbers only if needed
+            
+            console.log(selectedseats);
+                    console.log(email);
+                    console.log(data.emailId);
+                    const seatData = {
+                        requestedSeats: selectedseats,
+                        emailId: email,
+                        showId:  window.showButton
+                    };
+            fetch('http://localhost:6953/api/v1/ticket', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(seatData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert("Booking Successful!\n");
+                selectedseats = []; // Clear after success if needed
+            })
+            .catch(error => console.error('Booking failed:', error));
+        })
+        .catch(error => {
+            console.error('Email validation failed:', error);
+            alert("User not found or invalid email.");
         });
-      }
-
-      row.appendChild(btn);
-    });
-
-    grid.appendChild(row);
-  });
-}
-
-document.getElementById("submitShowsBtn").addEventListener("click", () => {
-  if (selectedShows.length === 0) {
-    alert("No shows selected");
-    return;
-  }
-
-  const payload = selectedShows.map(s => ({
-    movieId: s.movieId,
-    theaterId: s.theaterId,
-    showDate: s.date,
-    showTime: s.time
-  }));
-
-  console.log("Submitting to backend:", payload);
-  alert("Shows submitted successfully (check console)");
-});
-</script>
-</body>
-</html>
-
----------------------------------
-package com.example.Bookings.Responses;
-
-public class TheaterResponse {
-    private int theaterId;
-    private String name;
-    private String address;
-
-    public TheaterResponse(){}
-
-    // Constructor
-    public TheaterResponse(int theaterId, String name, String address) {
-        this.theaterId = theaterId;
-        this.name = name;
-        this.address = address;
-    }
-
-    // Getter and Setter for theaterId
-    public int getTheaterId() {
-        return theaterId;
-    }
-
-    public void setTheaterId(int theaterId) {
-        this.theaterId = theaterId;
-    }
-
-    // Getter and Setter for name
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    // Getter and Setter for address
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-}
-
-,,,,,,,,,,,,,,,,,,,,,,
- public List<TheaterResponse> getThList(){
-        List<Theater> theaterList = theaterRepository.findAll();
-        List<TheaterResponse> theaterResponseList = new ArrayList<>();
-        for(Theater theater : theaterList) {
-            TheaterResponse obj  = new TheaterResponse();
-            obj.setTheaterId(theater.getTheaterId());
-            obj.setAddress(theater.getAddress());
-            obj.setName(theater.getName());
-           theaterResponseList.add(obj);
-        }
-        return theaterResponseList;
-    }
-
-    ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-     @GetMapping("/theaterList")
-    public ResponseEntity<?> getThList(){
-        List<TheaterResponse> response = theaterService.getThList();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }*/
+});   , every time if they click open login page like add this and you only put condition if login then processd */

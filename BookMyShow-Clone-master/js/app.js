@@ -1,18 +1,16 @@
 const carousel = document.querySelector('.carousel');
 let sliders = [];
 
-let slideIndex = 0; // to track current slide index.
+let slideIndex = 0; 
 
 const createSlide = () => {
     if (slideIndex >= movies.length) {
         slideIndex = 0;
     }
 
-    // creating DOM element
     let slide = document.createElement('div');
     let imgElement = document.createElement('img');
 
-    // attaching all elements
     imgElement.appendChild(document.createTextNode(''));
     slide.appendChild(imgElement);
     carousel.appendChild(slide);
@@ -21,7 +19,7 @@ const createSlide = () => {
     imgElement.src = movies[slideIndex].image;
     slideIndex++;
 
-    // setting elements classname
+
     slide.className = 'slider';
 
     sliders.push(slide);
@@ -39,7 +37,6 @@ setInterval(() => {
     createSlide();
 }, 5000);
 
-//side navigation bar
 
 jQuery(document).ready(function () {
 
@@ -57,7 +54,6 @@ jQuery(document).ready(function () {
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
     });
 
-    /* other code */
 
 });
 
@@ -75,7 +71,7 @@ window.onclick = function (event) {
 
 const theaterBtn = document.querySelector('thBtn');
 
-// java scrippt code Theater
+
 
 const theaterFrm = document.querySelector('.theaterForm');
 const thtBtb = document.getElementById('thbtn');
@@ -87,7 +83,7 @@ theaterFrm.addEventListener("submit", (e) => {
         address: theaterFrm.elements['adres'].value,
         noOfScreens: theaterFrm.elements['scren'].value
     };
-    fetch('http://localhost:6959/api/v1/theater/addTh', {
+    fetch('http://localhost:6947/api/v1/theater/addTh', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -104,7 +100,7 @@ theaterFrm.addEventListener("submit", (e) => {
                 theaterId: tid
             };
 
-            return fetch('http://localhost:6959/api/v1/theater/addSeat', {
+            return fetch('http://localhost:6947/api/v1/theater/addSeat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -122,7 +118,7 @@ theaterFrm.addEventListener("submit", (e) => {
         });
 });
 
-/// All Creating Movies and Shows.
+
 const moveForm = document.querySelector('.movieForm');
 const movbtn = document.getElementById('mvbtn');
 const ShowvsTherFrm = document.getElementById('theaterContainerTop');
@@ -136,14 +132,14 @@ movbtn.addEventListener('click', (e) => {
         movieName: moveForm.elements['name'].value,
         duration: moveForm.elements['durt'].value,
         releaseDate: moveForm.elements['date'].value,
-        language: moveForm.elements['lang'].value,
+        language: moveForm.elements['langu'].value,
         rating: moveForm.elements['ratg'].value,
         image : moveForm.elements['showno'].value
     };
 
     showslimit = moveForm.elements['showno'].value;
 
-    fetch('http://localhost:6959/api/v1/Movie', {
+    fetch('http://localhost:6947/api/v1/Movie', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -156,7 +152,7 @@ movbtn.addEventListener('click', (e) => {
             console.log("movieId : " + movieid);
 
             // Fetch Theaters
-            fetch('http://localhost:6959/api/v1/theater/theaterList')
+            fetch('http://localhost:6947/api/v1/theater/theaterList')
                 .then(response => response.json())
                 .then(data => {
                     theaterList.length = 0;        // Clear old theaters
@@ -179,10 +175,10 @@ const theaterContainer = document.getElementById('theaterContainer');
 const submitBtn = document.getElementById('submitShows');
 const selectedShows = []; // to hold selected show objects
 
-// Predefined show times
+
 const showTimes = ["10:00", "13:00", "16:00", "19:00", "22:00"];
 
-// Dynamically generate UI
+
 function renderTheaterRows() {
     theaterContainer.innerHTML = '';
 
@@ -190,84 +186,75 @@ function renderTheaterRows() {
     const showdate = showDateInput?.value;
     if (!showdate) return;
 
-    fetch(`http://localhost:6959/api/v1/show/getshowsbydate?showDate=${encodeURIComponent(showdate)}`)
-        .then(response => response.json())
-        .then(shows => {
-            const showMap = {};
-
-            shows.forEach(show => {
-                const theaterId = show.theaterId;
-                const showTime = show.showTime.substring(0, 5); // Normalize to "HH:mm"
-                if (!showMap[theaterId]) {
-                    showMap[theaterId] = [];
-                }
-                showMap[theaterId].push(showTime);
-            });
-
-            //  Now build UI AFTER showMap is ready
-            theaterList.forEach(theater => {
-                const theaterRow = document.createElement('div');
-                theaterRow.classList.add('theater-row');
-
-                const title = document.createElement('h4');
-                title.innerText = `Theater: ${theater.name || "TheaterEmt"}`;
-                theaterRow.appendChild(title);
-
-                showTimes.forEach(time => {
-                    const btn = document.createElement('button');
-                    btn.innerText = time;
-                    btn.className = "show-btn";
-                    //let formattedTime = time + ":00";
-
-         // Check if this time already exists for this theater_Id in showMap
-            if(showMap[theater.theaterId] && showMap[theater.theaterId].includes(time) ){
-                btn.id="isBooked";
-                console.log(time);
+    fetch(`http://localhost:6947/api/v1/show/getshowsbydate?showDate=${encodeURIComponent(showdate)}`)
+    .then(response => response.json())
+    .then(shows => {
+      const showMap = {};
+  
+      shows.forEach(show => {
+        const theaterId = show.theaterId;
+        const showTime = show.showTime.substring(0, 5);
+        if (!showMap[theaterId]) {
+          showMap[theaterId] = [];
+        }
+        showMap[theaterId].push(showTime);
+      });
+  
+      theaterList.forEach(theater => {
+        const theaterRow = document.createElement('div');
+        theaterRow.classList.add('theater-row');
+  
+        const title = document.createElement('h4');
+        title.innerText = `Theater: ${theater.name || "TheaterEmpty"}`;
+        theaterRow.appendChild(title);
+  
+        showTimes.forEach(time => {
+          const btn = document.createElement('button');
+          btn.innerText = time;
+          btn.className = "show-btn";
+  
+          
+          if (showMap[theater.theaterId] && showMap[theater.theaterId].includes(time)) {
+            btn.classList.add("isBooked");
+            btn.disabled = true; // extra safety
+          }
+  
+          btn.addEventListener('click', () => {
+            if (btn.classList.contains('isBooked')) return; // block clicking on booked ones
+  
+            btn.classList.toggle('selected');
+  
+            const show = {
+              showDate: showdate,
+              showTime: time,
+              movieId: movieid,
+              theaterId: theater.theaterId || theater.id
+            };
+  
+            const index = selectedShows.findIndex(s =>
+              s.theaterId === show.theaterId &&
+              s.showTime === show.showTime &&
+              s.showDate === show.showDate &&
+              s.movieId === show.movieId
+            );
+  
+            if (index === -1) {
+              selectedShows.push(show);
+            } else {
+              selectedShows.splice(index, 1);
             }
-
-                    // Add click listener
-                    btn.addEventListener('click', () => {
-                        //if (btn.classList.contains('isBooked')) return;
-
-                        btn.classList.toggle('selected');
-                        const show = {
-                            showDate: showdate,
-                            showTime: time,
-                            movieId: movieid,
-                            theaterId: theater.theaterId || theater.id
-                        };
-
-                        const index = selectedShows.findIndex(s =>
-                            s.theaterId === show.theaterId &&
-                            s.showTime === show.showTime &&
-                            s.showDate === show.showDate &&
-                            s.movieId === show.movieId
-                        );
-
-                        if (index === -1) {
-                            selectedShows.push(show);
-                        } else {
-                            selectedShows.splice(index, 1);
-                        }
-                    });
-
-                    theaterRow.appendChild(btn);
-                });
-
-                theaterContainer.appendChild(theaterRow);
-            });
-        })
-        .catch(error => console.error(error));
-}
-
+          });
+  
+          theaterRow.appendChild(btn);
+        });
+  
+        theaterContainer.appendChild(theaterRow);
+      });
+    })
+    .catch(error => console.error(error));
+}  
 document.getElementById('showDate').addEventListener('change', renderTheaterRows);
-// Attach event listener after DOM content loaded
-/*document.addEventListener("DOMContentLoaded", () => {
-    const showDateInput = document.getElementById('showDate');
-    if (showDateInput) {
-        showDateInput.addEventListener('change', renderTheaterRows);
-    }
-});*/
+
 
 submitBtn.addEventListener('click', () => {
     if (selectedShows.length === 0) {
@@ -277,7 +264,7 @@ submitBtn.addEventListener('click', () => {
 
     selectedShows.forEach(show => {
         console.log(show);
-        fetch('http://localhost:6959/api/v1/show/add', {
+        fetch('http://localhost:6947/api/v1/show/add', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -296,20 +283,6 @@ submitBtn.addEventListener('click', () => {
     });
 });
 
-/*showsForm.addEventListener('click',(e) => {
-            e.preventDefault();
-           
-            fetch('', {
-                method:"POST",
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify(showData)
-            })
-            .then(response => response.text())
-            .then(data =>{})
-            .catch(error => console.error("error: "+error) );
-});*/
 
 document.addEventListener('DOMContentLoaded', () => {
     const movieCont = document.querySelector('.movies-list');
@@ -318,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollRow = document.createElement("div");
     scrollRow.className = "card-container";
 
-    fetch('http://localhost:6959/api/v1/Movie/get')
+    fetch('http://localhost:6947/api/v1/Movie/get')
         .then(response => response.json())
         .then(movies => {
             for (const movie of movies) {
@@ -351,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const movieName = ele.querySelector('h3')?.innerText.trim();
         if (!movieName) return;
 
-        fetch(`http://localhost:6959/api/v1/show/getshowes?movieName=${encodeURIComponent(movieName)}`)
+        fetch(`http://localhost:6947/api/v1/show/getshowes?movieName=${encodeURIComponent(movieName)}`)
             .then(res => res.json())
             .then(shows => {
                 const uniqueDates = [...new Set(shows.map(s => s.showDate))];
@@ -374,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Error fetching shows:', err));
     });
 
-    // Date button click
+    
     const dateContainer = document.getElementById('date-container');
     const showContainer = document.getElementById('show-container');
     const showTab = document.querySelector('.show-container-Top');
@@ -394,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!theaterMap[show.theaterName]) {
                 theaterMap[show.theaterName] = [];
             }
-            theaterMap[show.theaterName].push(show); // push whole show object
+            theaterMap[show.theaterName].push(show);
         });
 
         showContainer.innerHTML = `<h3>Shows on ${selectedDate}</h3>`;
@@ -412,6 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.className = 'showtime-btn';
                 btn.dataset.time = show.showTime;
                 btn.dataset.showId = show.showId;
+                console.log("show  ----> "+show.showid)
                 btn.innerText = show.showTime;
                 theaterBlock.appendChild(btn);
 
@@ -430,19 +404,22 @@ const showContainer = document.getElementById('show-container');
 const seatContainer = document.querySelector('#seat-container');
 const seatTab = document.querySelector('.seat-container-Top');
 const selectedseats = [];
+let shid=0
 
 showContainer.addEventListener('click', (event) => {
     const showbtn = event.target.closest('.showtime-btn');
     if (!showbtn) return; // Safeguard
+    shid=0
 
-    const showid = showbtn.dataset.showId;
+    const showid =showbtn.dataset.showId;
     window.showButton = showid;
+    shid=showid;
     seatContainer.innerHTML = "";
 
-    console.log(showid);
+    // console.log("Show id this is ok ok "+showid);
     var indx = 0;
-    // Fetch all show seats
-    fetch(`http://localhost:6959/api/v1/show/getshowSeats?showId=48`)
+
+    fetch(`http://localhost:6947/api/v1/show/getshowSeats?showId=${showid}`)
         .then(response => response.json())
         .then(seats => {
             console.log(seats);
@@ -467,14 +444,22 @@ showContainer.addEventListener('click', (event) => {
                     indx = -1;
                 }
                 indx++;
-                /*seatbtn.addEventListener('click', () => {
-                    selectedseats.push(seate.seatNo);
-                });
-                */ seatContainer.addEventListener('click', (event) => {
-                    const seat = event.target.closest('.seat-btn');
-                    seat.classList.add('isSelected');
-                    selectedseats.push(seat.dataset.seatNo);
-                });
+            
+                seatbtn.addEventListener('click', () => {
+                                if (!seatbtn.classList.contains("isBooked")) {
+                                    seatbtn.classList.toggle("isSelected");
+                
+                                    const seatNo = seatbtn.dataset.seatNo;
+                                    if (seatbtn.classList.contains("isSelected")) {
+                                        selectedseats.push(seatNo);
+                                    } else {
+                                        selectedseats = selectedseats.filter(s => s !== seatNo);
+                                    }
+                
+                                    console.log("Selected Seats:", selectedseats);
+                                }
+                            });
+                
             });
         })
         .catch(error => console.error('Error fetching seats:', error));
@@ -488,60 +473,89 @@ const seatForm = document.querySelector('.seatForm'); // optional, for form hand
 
 // Example: Get the email when the form is submitted
 seatForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent page reload
-    if(selectedseats.length === 0){
-        alert("Select atleast one seat! : No seats are selected");
+    e.preventDefault();
+
+
+    if (selectedseats.length === 0) {
+        alert("Select at least one seat!");
         return;
     }
 
-    const email = seatTabEmailInput.value.trim();
+
+    if (!loggedInUser) {
+        document.getElementById('id05').style.display = 'block'; // open login popup
+        
+    }
+
+    const email = loggedInUser.emailId.trim();
 
     if (email === "") {
-        alert("Kindly Enter Your BookMyShow Email");
+        alert("Kindly login with your BookMyShow account first.");
         return;
     }
 
-    // Validate email against backend
-    fetch(`http://localhost:6959/api/v1/user?emailId=${encodeURIComponent(email)}`)
-        .then(response => {
-            return response.text();
-            //if throw error here move to catch that's it.
-        })
+    fetch(`http://localhost:6947/api/v1/user?emailId=${encodeURIComponent(email)}`)
+        .then(response => response.text())
         .then(data => {
             if (data === "") {
-                alert("Email mismatch! Expected: user Not Found");
+                alert("Email mismatch! User not found on server.");
                 return;
             }
 
-            // Extract seat numbers only if needed
-            
-            console.log(selectedseats);
-                    console.log(email);
-                    console.log(data.emailId);
-                    const seatData = {
-                        requestedSeats: selectedseats,
-                        emailId: email,
-                        showId: 48 // window.showButton
-                    };
-            fetch('http://localhost:6959/api/v1/ticket', {
+            const seatData = {
+                requestedSeats: selectedseats,
+                emailId: email,
+                showId: window.showButton
+            };
+
+            return fetch('http://localhost:6947/api/v1/ticket', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(seatData)
-            })
-            .then(response => response.text())
-            .then(data => {
-                alert("Booking Successful!\n");
-                selectedseats = []; // Clear after success if needed
-            })
-            .catch(error => console.error('Booking failed:', error));
+            });
+        })
+        .then(response => {
+            if (response && response.ok) return response.text();
+        })
+        .then(data => {
+            if (data) {
+                alert("🎉 Booking Successful!");
+                selectedseats = []; // clear selected seats
+            }
         })
         .catch(error => {
-            console.error('Email validation failed:', error);
-            alert("User not found or invalid email.");
+            console.error("Booking failed:", error);
+            alert("Something went wrong while booking. Try again!");
         });
 });
+
+
+const loginForm = document.getElementById('loginForm');
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+
+  if (!email || !password) {
+    alert("Enter both email and password!");
+    return;
+  }
+
+  fetch(`http://localhost:6947/api/v1/user?emailId=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Invalid credentials");
+      return res.json();
+    })
+    .then(user => {
+      localStorage.setItem("loggedInUser", JSON.stringify(user));
+      loggedInUser = user;
+      alert(" Login Successful!");
+      document.getElementById('id01').style.display = 'none';
+    })
+    .catch(() => alert(" Invalid email or password!"));
+});
+
 
 const ticketEmal = document.querySelector(".ticketEmail");
 const ticketBtn = document.querySelector(".ticketbtn");
@@ -550,7 +564,7 @@ const ticketContainer = document.querySelector(".ticket-container");
 ticketBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const email = ticketEmal.value.trim(); 
-    fetch(`http://localhost:6959/api/v1/user?emailId=${encodeURIComponent(email)}`)
+    fetch(`http://localhost:6947/api/v1/user?emailId=${encodeURIComponent(email)}`)
         .then(response => {
             return response.text();
             //if throw error here move to catch that's it.
@@ -563,7 +577,7 @@ ticketBtn.addEventListener('click', (event) => {
             const ticketscont = document.createElement('div');
             ticketscont.className="tickets";
             ticketContainer.innerHTML = "";
-            fetch(`http://localhost:6959/api/v1/ticket?Email=${encodeURIComponent(email)}`)
+            fetch(`http://localhost:6947/api/v1/ticket?Email=${encodeURIComponent(email)}`)
             .then(response => response.json())
             .then(tickets => {
                 tickets.forEach(ticket => {
@@ -591,6 +605,104 @@ ticketBtn.addEventListener('click', (event) => {
         });
 });
 
+// User Register
+document.getElementById("userForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+  
+    var user = {
+      name: document.getElementById("name").value.trim(),
+      age: parseInt(document.getElementById("age").value.trim()),
+      emailId: document.getElementById("emailId").value.trim(),
+      mobileNo: document.getElementById("mobileNo").value.trim(),
+      password: document.getElementById("password").value.trim()
+    };
+  
+    if (!user.name || !user.age || !user.emailId || !user.mobileNo || !user.password) {
+      alert("Please fill all fields before submitting.");
+      return;
+    }
+  
+    fetch("http://localhost:6947/api/v1/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user)
+    })
+      .then(function (response) {
+        return response
+      })
+      .then(function (data) {
+        if (data) {
+        //   localStorage.setItem("user", JSON.stringify(data));
+        document.getElementById("name").innerHTML=""
+        document.getElementById("emailId").innerHTML=""
+        document.getElementById("mobileNo").innerHTML=""
+        document.getElementById("password").innerHTML=""
+          document.getElementById("id01").style.display = "none";
+          alert("Registration Successful! Welcome ");
+  
+        //   var signBtn = document.querySelector(".signin");
+        //   if (signBtn) signBtn.textContent = "Hi, " + data.name.split(" ")[0];
+        }
+      })
+      .catch(function (err) {
+        console.error("Error:", err);
+        alert("Cannot connect to backend on port 6947.");
+      });
+  });
+  
+
+  document.getElementById('getTicketsBtn').addEventListener('click', () => {
+    const email = document.getElementById('emailInput').value.trim();
+    const ticketList = document.getElementById('ticketList');
+  
+    if (!email) {
+      alert("Please enter your email");
+      return;
+    }
+  
+    ticketList.innerHTML = "<p>Loading your tickets...</p>";
+  
+    fetch(`http://localhost:6947/api/v1/ticket?Email=${encodeURIComponent(email)}`)
+      .then(res => {
+        if (!res.ok) throw new Error("No tickets found or server error");
+        return res.json();
+      })
+      .then(tickets => {
+        if (tickets.length === 0) {
+          ticketList.innerHTML = "<p>No tickets found for this email.</p>";
+          return;
+        }
+  
+        ticketList.innerHTML = "";
+        tickets.forEach(ticket => {
+          const card = document.createElement('div');
+          card.className = "ticket-card";
+          card.innerHTML = `
+            <h3>${ticket.movieName}</h3>
+            <p><strong>Theater:</strong> ${ticket.theaterName}</p>
+            <p><strong>Date:</strong> ${ticket.showDate}</p>
+            <p><strong>Time:</strong> ${ticket.showTime}</p>
+            <p><strong>Seats:</strong> ${ticket.bookedSeats}</p>
+            <p><strong>Total Amount:</strong> ₹${ticket.totalAmount}</p>
+          `;
+          ticketList.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error(err);
+        ticketList.innerHTML = "<p style='color:red;'>Error fetching tickets. Please try again later.</p>";
+      });
+  });
 
 
+  const logoutBtn = document.getElementById("logoutBtn")
 
+logoutBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("loggedInUser");
+      loggedInUser = null;
+      alert("You have been logged out successfully!");
+      updateLoginUI();
+    }
+  });
+  

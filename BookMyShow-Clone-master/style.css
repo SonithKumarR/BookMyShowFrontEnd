@@ -13,6 +13,7 @@ body {
     background: #fff;
     position: relative;
     font-family: roboto, sans-serif;
+    /* display: none; */
 }
 
 .navbar {
@@ -79,7 +80,7 @@ body {
     color: #c7cacb;
     font-size: 14px;
     margin-right: 18px;
-    top: 12px;
+    top: 10px;
 }
 
 .location:hover {
@@ -266,6 +267,7 @@ ul.navitem1 li {
     margin: 0 auto;
     align-items: center;
     overflow-x: auto;
+    cursor: pointer;
     overflow-y: visible;
     scroll-behavior: smooth;
     -ms-overflow-style: none;  /* Not required */
@@ -275,17 +277,23 @@ ul.navitem1 li {
 .card {
     position: relative;
     min-width: 225px;
-    width: 225px;
-    height: 400px;
+    width: 360px;
+    height: 350px;
     border-radius: 10px;
     overflow: hidden;
     margin-right: 30px;
+    transition: transform 0.2s ease;
+    /* padding:4px; */
+}
+.card:hover{
+  transform: translateY(-3px);
 }
 
 .card-img {
     width: 100%;
     height: 95%;
-    object-fit: cover;
+    background-size: cover;
+    /* object-fit: cover; */
 }
 
 .card-body {
@@ -312,17 +320,18 @@ ul.navitem1 li {
 
 .movie h3 {
     padding-top: 10px;
-    font-size: 18px;
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .detail {
-    font-size: 15px;
-    color: #b1aead;
+    font-size: 16px;
+    color:tomato;
 }
 
 .strip {
-    position: absolute;
-    padding-left: 145px;
+    margin-left: 150px;
     height: 10px;
     padding-top: 50px;
     right: 0px;
@@ -540,8 +549,8 @@ div .text {
 }
 
 .open-menu {
-    position: fixed;
-    top: 20px;
+    position: absolute;
+    top: 40px;
     left: 10px;
     box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.2);
 }
@@ -554,6 +563,15 @@ div .text {
 }
 
 /* The Close Button (x) */
+
+.close1{
+    position: absolute;
+    right: 27%;
+    top: 180px;
+    color: #434343;
+    font-size: 35px;
+    color: red;
+}
 .close {
     position: absolute;
     right: 30px;
@@ -562,9 +580,12 @@ div .text {
     font-size: 28px;
 }
 
-.close:hover,
-.close:focus {
+
+.close,.close1:hover,.close,.close1:focus  {
     cursor: pointer;
+    background-color: white;
+    border-radius: 40%;
+    height: 40px;
 }
 
 .container {
@@ -678,7 +699,7 @@ div .text {
     /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.8);
     /* Black w/ opacity */
     padding-top: 60px;
 }
@@ -765,7 +786,7 @@ div .text {
     /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
     /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.7);
     /* Black w/ opacity */
     padding-top: 50px; 
 }
@@ -774,7 +795,7 @@ div .text {
     margin: 5% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
-    height: 92%;
+    /* height: 92%; */
     width: 428px; 
 }
 .theater3 {
@@ -782,7 +803,7 @@ div .text {
     margin: 2% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
-    height: 82%;
+    /* height: 82%; */
     width: 428px;
 }
 .theater3 span{
@@ -804,10 +825,10 @@ div .text {
 }
 .theaterForm input{
     margin-top: 12px;
-    margin-left: 37px;
+    margin-left: 15px;
     margin-right: 30px;
-    height: 38px;
-    width: 78%;
+    height: 50px;
+    width: 95%;
     background-color: #fff;
     color: #434343;
     text-decoration: none;
@@ -817,12 +838,11 @@ div .text {
     padding-left: 28px;
     font-size: 17px;
 }
-.movieForm input{
+.movieForm input, #slctlang{
     margin-top: 8px;
-    margin-left: 37px;
-    margin-right: 30px;
-    height: 38px;
-    width: 78%;
+    margin-left: 14px;
+    height: 50px;
+    width: 95%;
     background-color: #fff;
     color: #434343;
     border: 3px solid #a98c2dd0;
@@ -830,22 +850,48 @@ div .text {
     padding-left: 28px;
     font-size: 17px;
 }
+
 .movieForm .mvBtn{
-    margin-top: 3%;
+    margin: 40px auto;
     padding: 7px 30px;
     height: 42px;
     border: 3px solid #8c8f46;
-    background-color: rgb(197, 184, 163);
+    background-color: rgb(192, 198, 109);
     font-weight: bold;
     font-size: 19px;
     padding-left: 15px;
     padding-top: 5px;
-    margin-left: 92px;
-    width: 45%;
-    color: #bebeac;
+    margin-left: 62px;
+    width: 65%;
+    color: #f803a6;
     cursor: pointer;
+    text-align: center;
+    transition:  background-color 0.6s ease  transform 0.3s ease ;
 }
-#movieBtn{
+
+.movieForm .mvBtn:hover{
+    transform: translateY(-2px);
+    background-color: rgb(227, 243, 5);
+    border: 1px solid #71724c;
+    /* box-shadow: 0px 0px 6px rgb(151, 154, 1); */
+}
+
+#ticketbtn{
+    margin-top: 8px;
+    width: 48%;
+    height: 6%;
+    margin-left: 13%;
+    border: 1px solid sandybrown;
+    font-size:20px;
+    font-weight: 700;
+    background-color:#0096c7;
+    color: rgb(148, 128, 121);
+    border-radius: 5px;
+    box-shadow: 2px 1px 2px sandybrown;
+    letter-spacing: 1px;
+}
+
+#movieBtn {
     margin-top: 8px;
     width: 48%;
     height: 6%;
@@ -860,17 +906,17 @@ div .text {
     letter-spacing: 1px;
 }
 .theaterForm .thBtn{
+    margin-top: 45px;
+    width: 65%;
+    height: 6%;
     padding: 7px 30px;
-    height: 42px;
-    border-style: groove #ab5225ef;
+    border-style: groove #e15109ef;
     border-color: #b25848;
-    background-color: rgb(172, 106, 113);
+    background-color: rgb(194, 35, 51);
     font-weight: bold;
     font-size: 19px;
     padding-left: 15px;
-    padding-top: 5px;
-    margin-left: 92px;
-    width: 30%;
+    margin-left: 62px;
 }
 
 /* Showes User Booing*/
@@ -1035,23 +1081,25 @@ div .text {
     left: 58%;
 }
 
-#isBooked {
-    background-color: rgb(227, 107, 107);
-    pointer-events: none; /* disable clicking */
-    opacity: 0.6;
-}
+
 .show-btn:hover{
     background-color: #8c8f46;
 }
 .isBooked {
-    background-color: rgb(221, 218, 218);
-    pointer-events: none; /* disable clicking */
-    opacity: 0.2;
+    background-color: #8f8d8d !important; /* red shade */
+    color: white;
+    opacity: 0.7;
+    cursor: not-allowed;
+    border: 1px solid #b71c1c;
 }
-.isSelected{
-    background-color: #4CAF50;
-    pointer-events: none;
+
+.isSelected {
+    background-color: #4CAF50 !important; /* green shade */
+    color: white;
+    border: 1px solid #2e7d32;
 }
+
+
 
 #seat-container{
     width: 63%;
@@ -1087,6 +1135,10 @@ div .text {
 #PREMIUM{
     background-color: #e3961b;
     color: black;
+}
+
+#CLASSIC{
+    background-color:rgb(132, 193, 213);
 }
 
 .date-btn {
@@ -1131,8 +1183,9 @@ div .text {
     margin: 2% auto 15% auto;
     /* 5% from the top, 15% from the bottom and centered */
     border-radius: 8px;
-    height: 82%;
-    width: 428px;
+    /* height: 92%; */
+    width: 470px;
+    padding: 20px;
     /* Could be more or less, depending on screen size */
 }
 
@@ -1165,3 +1218,180 @@ div .text {
     font-weight: bold;
     margin-bottom: 8px;
 }
+
+
+
+.ticket-page1{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+    z-index: 957;
+    position: fixed;
+    display: none;
+}
+.ticket-page{
+    background: linear-gradient(to right, #667eea, #764ba2);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 460px;
+    width: 50%;
+    margin: 160px auto;
+    padding: 20px;
+    height: 500px;
+  }
+
+  .ticket-list{
+    /* margin: 40px auto; */
+    /* width: 100%; */
+    display: flex;
+    gap: 6px;
+    overflow-x: scroll;
+    /* overflow-y: hidden; */
+    scrollbar-width: none;
+  }
+  
+  .ticket-page {
+    padding-top: 50px;
+  }
+  
+  .email-form {
+    margin: 20px auto;
+  }
+  
+  #emailInput {
+    width: 300px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  #getTicketsBtn {
+    background-color: #00c6ff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  #getTicketsBtn:hover {
+    background-color: #0096c7;
+  }
+  
+  .ticket-container {
+    margin-top: 30px;
+    /* display: flex;
+    flex-wrap: wrap; */
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .ticket-card {
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: left;
+    transition: transform 0.2s;
+    height: 270px;
+    width: 270px;
+  }
+  
+  .ticket-card:hover {
+    transform: scale(1.03);
+  }
+  
+  .ticket-card h3 {
+    margin-top: 0;
+    color: #764ba2;
+  }
+  
+  .ticket-card p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+
+
+
+  .login-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+  }
+  
+  .login-content {
+    background: white;
+    width: 300px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .login-content input {
+    width: 90%;
+    margin: 8px 0;
+    padding: 10px;
+  }
+  
+  .login-content button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .close-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+
+  
+  #logoutBtn {
+    background-color: #d9534f;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 200px;
+    margin: 10px;
+    width: 80%;
+  }
+  
+  #logoutBtn:hover {
+    background-color: #c9302c;
+  }
+  
+
+  .dashboard {
+    display: none;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .adminButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+  }

@@ -14,6 +14,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Javascript -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -31,9 +32,85 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <style>
+        .user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user-form label {
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.user-form input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.user-form input:focus {
+  border-color: #e50914;
+}
+
+.register-btn {
+  margin-top: 15px;
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background-color: #c40811;
+}
+
+/* Password input styling */
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+/* Optional: focus effect */
+input[type="password"]:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+}
+
+.agreement {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 13px;
+  color: #555;
+}
+
+    </style>
 </head>
 
 <body>
+    <!-- Login / Register Popup -->
+<div id="id05" class="login-modal">
+    <div class="login-content">
+      <h2>Login to BookMyShow</h2>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Enter your Email" required />
+        <input type="password" id="loginPassword" placeholder="Enter Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <button class="close-btn" onclick="document.getElementById('id05').style.display='none'">Close</button>
+    </div>
+  </div>
+  
 
     <!-- Wrapper -->
     <div class="wrapper">
@@ -44,11 +121,14 @@
                 <h1>Hey!</h1>
             </nav>
 
-            <nav class="sidesubnavbar">
+            <nav class="sidesubnavbar" id="loginSection">
                 <img src="img/rewards.webp">
                 <p>Unlock special offers & great benifits</p>
-                <button class="login" onclick="document.getElementById('id01').style.display='block'">Login / Register</button>
+                <button class="login" onclick="document.getElementById('id05').style.display='block'">Login / Register</button>
             </nav>
+            <!-- Logout Button -->
+
+  
 
             <a href="#">
                 <div class="lefticon">
@@ -63,7 +143,7 @@
                 <div class="lefticon">
                     <ion-icon name="ticket-outline"></ion-icon>
                 </div>
-                <div class="text" onclick="document.getElementById('ticket').style.display='block'" >Purchase History<br>
+                <div class="text"   onclick="document.getElementsByClassName('ticket-page1')[0].style.display='block'" >Purchase History<br>
                     <div class="subtext">View all your bookings & Purchases</div>
                 </div>
                 <div class="righticon">
@@ -103,12 +183,38 @@
                     <ion-icon name="chevron-forward-outline"></ion-icon>
                 </div>
             </a>
+            <!-- Logout Button -->
+<div id="userSection" >
+    <span id="welcomeMsg"></span>
+    <button id="logoutBtn">Logout</button>
+  </div>
+  
+  
             <button class="theater" 
             onclick="document.getElementById('dev01').style.display='block'">Theater</button><br>
             <button class="movie" id="movieBtn"
             onclick="document.getElementById('dev02').style.display='block'">Movie</button>
         </nav>
         <!-- End sidebar -->
+
+        <div class="ticket-page1">
+        <div class="ticket-page">
+            <span onclick="document.getElementsByClassName('ticket-page1')[0].style.display='none'"
+            title="close" class="close1">
+            <ion-icon name="close-outline"></ion-icon>
+            </span>
+            <h2>🎟 Get Your Tickets</h2>
+        
+            <div class="email-form">
+              <input type="email" id="emailInput" placeholder="Enter your registered email" required>
+              <button id="getTicketsBtn">Get Tickets</button>
+            </div>
+        
+            <div id="ticketList" class="ticket-list">
+              <!-- Tickets will appear here -->
+            </div>
+          </div>
+        </div>
 
          <!-- Theater Form  -->
             <div class="theater2" id="dev01">
@@ -138,7 +244,16 @@
                  <h6 id="thd01" style="margin-left: 35%;">  Movie Details</h6>
                 <form class="movieForm"> 
                     <input type="text" name="name" placeholder="Enter movie name" required/><br>
-                    <input type="text" name="lang" placeholder="Enter movie language" required/><br>
+                    <!-- <label for="language">Language:</label> -->
+                    <select id="slctlang" name="langu" required>
+                      <option value="">-- Select Language --</option>
+                      <option value="ENGLISH">English</option>
+                      <option value="HINDI">Hindi</option>
+                      <option value="KANNADA">Kannada</option>
+                      <option value="TAMIL">Tamil</option>
+                      <option value="TELUGU">Telugu</option>
+                    </select>
+                    
                     <input type="date" name="date" placeholder="Enter release date" required/><br>
                     <input type="number" name="durt" placeholder="Enter duration" required/><br>
                     <input type="number" name="ratg" placeholder="Enter movie rating" required/><br>
@@ -218,51 +333,36 @@
                     <button class="signin"
                         onclick="document.getElementById('id01').style.display='block'">Signin</button>
 
-                    <div id="id01" class="modal">
-
-                        <div class="modal-content">
-                            <div class="getstart">`
-                                <h3>Get Started</h3>
-                                <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                                    title="Close Modal">
-                                    <ion-icon name="close-outline"></ion-icon>
+                        <div id="id01" class="modal">
+                            <div class="modal-content">
+                              <div class="getstart">
+                                <h3>User Registration / Sign In</h3>
+                                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">
+                                  <ion-icon name="close-outline"></ion-icon>
                                 </span>
+                              </div>
+                          
+                              <form id="userForm" class="user-form">
+                                <label for="name">Full Name:</label>
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required />
+                          
+                                <label for="age">Age:</label>
+                                <input type="number" id="age" name="age" placeholder="Enter your age" required />
+                          
+                                <label for="emailId">Email ID:</label>
+                                <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required />
+                          
+                                <label for="mobileNo">Mobile Number:</label>
+                                <input type="tel" id="mobileNo" name="mobileNo" placeholder="Enter your mobile number" required />
+                          
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" placeholder="Enter your password" required />
+                          
+                                <button type="submit" id="registerBtn" class="register-btn">Register / Sign In</button>
+                              </form>
                             </div>
-
-                            <div class="container">
-                                <a href="#" class="button">
-                                    <div class="logo">
-                                        <img src="img/googlelogo.svg">
-                                    </div>
-                                    <div class="text">Continue with Google</div>
-                                </a>
-                                <a href="#" class="button">
-                                    <div class="logo">
-                                        <ion-icon name="mail-outline" style="font-size: 22px;"></ion-icon>
-                                    </div>
-                                    <div class="text">Continue with Email</div>
-                                </a>
-                                <a href="#" class="button">
-                                    <div class="logo">
-                                        <ion-icon name="logo-apple" style="font-size: 22px;"></ion-icon>
-                                    </div>
-                                    <div class="text">Continue with Apple</div>
-                                </a>
-                            </div>
-                            <h2>OR</h2>
-
-                            <div class="phone">
-                                <img alt="indian flag" src="img/indianflag.svg">
-                                <div class="code">+91</div>
-                                <input id="mobileNo" type="tel" pattern="[0-9]*"
-                                    placeholder="Continue with mobile number" class="mobileNo">
-                            </div>
-
-                            <p>I agree to the <u>Terms & Conditions </u>&<u> Privacy Policy</u></p>
-
-                        </div>
-
-                    </div>
+                          </div>
+                          
 
                     <a href="#" class="btn-customized open-menu">
                         <ion-icon name="menu-outline"></ion-icon>
